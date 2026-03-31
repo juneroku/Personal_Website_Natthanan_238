@@ -304,3 +304,107 @@
     </style>
 </head>
 <body class="netflix-calc">
+
+     <!-- 
+        ============================================
+        NAVIGATION
+        ============================================
+    -->
+    <header class="netflix-nav">
+        <a href="index.html" class="netflix-nav__logo">Portfolio</a>
+        <ul class="netflix-nav__menu">
+            <li><a href="index.html" class="netflix-nav__link">Home</a></li>
+            <li><a href="cv.html" class="netflix-nav__link">About Me</a></li>
+            <li><a href="calculator.html" class="netflix-nav__link netflix-nav__link--active" aria-current="page">Calculator</a></li>
+        </ul>
+    </header>
+
+    <!-- 
+        ============================================
+        MAIN CONTENT
+        ============================================
+    -->
+    <main class="calc-container">
+        <!-- Header -->
+        <div class="calc-header">
+            <div class="calc-header__badge">
+                <span class="calc-header__badge-icon">N</span>
+                <span class="calc-header__badge-text">Interactive</span>
+            </div>
+            <h1 class="calc-header__title">CALCULATOR</h1>
+            <p class="calc-header__subtitle">เครื่องคิดเลข JavaScript</p>
+        </div>
+
+        <!-- 
+            ============================================
+            CALCULATOR COMPONENT
+            ใช้ CSS Grid จัดวางปุ่ม 4 คอลัมน์
+            ============================================
+        -->
+        <div class="calculator" role="application" aria-label="เครื่องคิดเลข">
+            <!-- Display -->
+            <div class="calculator__display">
+                <div class="calculator__equation" aria-live="polite">0</div>
+                <div class="calculator__result" aria-live="polite">0</div>
+            </div>
+            
+            <!-- 
+                Keypad - ใช้ Event Delegation
+                ผูก Event กับ container แทนที่จะผูกกับปุ่มแต่ละปุ่ม
+            -->
+            <div class="calculator__keypad">
+                <!-- Row 1 -->
+                <button type="button" class="calculator__key calculator__key--clear" data-action="clear">C</button>
+                <button type="button" class="calculator__key calculator__key--operator" data-action="sign">+/-</button>
+                <button type="button" class="calculator__key calculator__key--operator" data-action="percent">%</button>
+                <button type="button" class="calculator__key calculator__key--operator" data-action="operator" data-value="/">÷</button>
+                
+                <!-- Row 2 -->
+                <button type="button" class="calculator__key" data-action="number" data-value="7">7</button>
+                <button type="button" class="calculator__key" data-action="number" data-value="8">8</button>
+                <button type="button" class="calculator__key" data-action="number" data-value="9">9</button>
+                <button type="button" class="calculator__key calculator__key--operator" data-action="operator" data-value="*">×</button>
+                
+                <!-- Row 3 -->
+                <button type="button" class="calculator__key" data-action="number" data-value="4">4</button>
+                <button type="button" class="calculator__key" data-action="number" data-value="5">5</button>
+                <button type="button" class="calculator__key" data-action="number" data-value="6">6</button>
+                <button type="button" class="calculator__key calculator__key--operator" data-action="operator" data-value="-">−</button>
+                
+                <!-- Row 4 -->
+                <button type="button" class="calculator__key" data-action="number" data-value="1">1</button>
+                <button type="button" class="calculator__key" data-action="number" data-value="2">2</button>
+                <button type="button" class="calculator__key" data-action="number" data-value="3">3</button>
+                <button type="button" class="calculator__key calculator__key--operator" data-action="operator" data-value="+">+</button>
+                
+                <!-- Row 5 -->
+                <button type="button" class="calculator__key calculator__key--zero" data-action="number" data-value="0">0</button>
+                <button type="button" class="calculator__key" data-action="decimal">.</button>
+                <button type="button" class="calculator__key calculator__key--equals" data-action="equals">=</button>
+            </div>
+        </div>
+
+        <!-- Keyboard Info -->
+        <div class="calc-info">
+            <p><strong>Keyboard Support:</strong> ใช้ตัวเลข 0-9, +, -, *, /, Enter, Escape, Backspace</p>
+        </div>
+    </main>
+
+    <!-- 
+        ============================================
+        FOOTER
+        ============================================
+    -->
+    <footer class="netflix-footer">
+        <p class="netflix-footer__text">&copy; 2024 Natthanan Suwanchot. All rights reserved.</p>
+    </footer>
+
+    <!-- 
+        ============================================
+        JAVASCRIPT
+        เชื่อมต่อไฟล์ JavaScript ภายนอก
+        ============================================
+    -->
+    <script src="js/calculator.js"></script>
+</body>
+</html>
