@@ -1,0 +1,478 @@
+head>
+    <!-- ===== META TAGS ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Natthanan Suwanchot - Personal Website Portfolio">
+    <title>Natthanan Suwanchot | Portfolio</title>
+    
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- ===== Google Fonts - Bebas Neue for cinematic title ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    
+    <!-- ===== NETFLIX-STYLE CSS ===== -->
+    <style>
+        /* ============================================
+           NETFLIX MOVIE POSTER STYLE
+           สไตล์หน้าแรกแบบโปสเตอร์หนัง Netflix
+           ============================================ */
+        
+        /* Import font for cinematic look */
+        .netflix-page {
+            --netflix-red: #e50914;
+            --netflix-dark: #141414;
+            --netflix-text: #ffffff;
+            --netflix-gray: #b3b3b3;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        /* ===== HERO SECTION - FULL SCREEN ===== */
+        .netflix-hero {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            background-color: var(--netflix-dark);
+            overflow: hidden;
+        }
+        
+        /* ===== BACKGROUND IMAGE ===== */
+        .netflix-hero__bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .netflix-hero__bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+        
+        /* ===== GRADIENT OVERLAYS (FADE EFFECTS) ===== */
+        /* Gradient จากซ้าย - ทำให้ข้อความอ่านง่าย */
+        .netflix-hero__gradient-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                var(--netflix-dark) 0%,
+                rgba(20, 20, 20, 0.95) 20%,
+                rgba(20, 20, 20, 0.7) 50%,
+                transparent 100%
+            );
+            z-index: 2;
+        }
+        
+        /* Gradient จากล่าง */
+        .netflix-hero__gradient-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(
+                0deg, 
+                var(--netflix-dark) 0%,
+                rgba(20, 20, 20, 0.8) 30%,
+                transparent 100%
+            );
+            z-index: 2;
+        }
+        
+        /* Gradient จากบน - สำหรับ header */
+        .netflix-hero__gradient-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(
+                180deg, 
+                rgba(20, 20, 20, 0.9) 0%,
+                transparent 100%
+            );
+            z-index: 3;
+        }
+        
+        /* ===== NAVIGATION (NETFLIX STYLE) ===== */
+        .netflix-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .netflix-nav--scrolled {
+            background-color: var(--netflix-dark);
+        }
+        
+        .netflix-nav__logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--netflix-red);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        
+        .netflix-nav__menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+        
+        .netflix-nav__link {
+            color: var(--netflix-gray);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .netflix-nav__link:hover,
+        .netflix-nav__link--active {
+            color: var(--netflix-text);
+        }
+        
+        /* ===== CONTENT OVERLAY ===== */
+        .netflix-hero__content {
+            position: absolute;
+            top: 50%;
+            left: 4%;
+            transform: translateY(-50%);
+            z-index: 10;
+            max-width: 600px;
+        }
+        
+        /* ===== BADGE (เช่น "N SERIES") ===== */
+        .netflix-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .netflix-badge__icon {
+            background-color: var(--netflix-red);
+            color: white;
+            font-weight: 900;
+            font-size: 1rem;
+            padding: 2px 6px;
+            letter-spacing: 1px;
+        }
+        
+        .netflix-badge__text {
+            color: var(--netflix-gray);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        /* ===== MAIN TITLE (MOVIE POSTER STYLE) ===== */
+        .netflix-title {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            color: var(--netflix-text);
+            line-height: 0.95;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        
+        .netflix-subtitle {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: var(--netflix-gray);
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+        
+        /* ===== DESCRIPTION ===== */
+        .netflix-description {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            color: var(--netflix-text);
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+            max-width: 500px;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .netflix-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .netflix-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 28px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+        
+        .netflix-btn--play {
+            background-color: white;
+            color: black;
+        }
+        
+        .netflix-btn--play:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .netflix-btn--info {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: white;
+        }
+        
+        .netflix-btn--info:hover {
+            background-color: rgba(109, 109, 110, 0.5);
+        }
+        
+        .netflix-btn__icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* ===== MATURITY RATING ===== */
+        .netflix-rating {
+            position: absolute;
+            bottom: 35%;
+            right: 0;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+        
+        .netflix-rating__badge {
+            background-color: rgba(51, 51, 51, 0.6);
+            border-left: 3px solid white;
+            padding: 5px 40px 5px 10px;
+            font-size: 1rem;
+            color: white;
+        }
+        
+        /* ===== SCROLL INDICATOR ===== */
+        .netflix-scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+            animation: bounce 2s infinite;
+        }
+        
+        .netflix-scroll-indicator__arrow {
+            display: block;
+            margin-top: 5px;
+            font-size: 1.5rem;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        
+        /* ===== FADE IN ANIMATION ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .netflix-hero__content > * {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+        
+        .netflix-hero__content > *:nth-child(1) { animation-delay: 0.2s; }
+        .netflix-hero__content > *:nth-child(2) { animation-delay: 0.4s; }
+        .netflix-hero__content > *:nth-child(3) { animation-delay: 0.6s; }
+        .netflix-hero__content > *:nth-child(4) { animation-delay: 0.8s; }
+        .netflix-hero__content > *:nth-child(5) { animation-delay: 1s; }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .netflix-hero__gradient-left {
+                width: 100%;
+                background: linear-gradient(
+                    0deg, 
+                    var(--netflix-dark) 0%,
+                    rgba(20, 20, 20, 0.9) 40%,
+                    rgba(20, 20, 20, 0.5) 70%,
+                    transparent 100%
+                );
+            }
+            
+            .netflix-hero__content {
+                top: auto;
+                bottom: 15%;
+                transform: none;
+                left: 5%;
+                right: 5%;
+                max-width: none;
+            }
+            
+            .netflix-nav__menu {
+                gap: 15px;
+            }
+            
+            .netflix-nav__link {
+                font-size: 12px;
+            }
+            
+            .netflix-title {
+                font-size: clamp(2.5rem, 10vw, 4rem);
+            }
+            
+            .netflix-description {
+                font-size: 0.95rem;
+            }
+            
+            .netflix-btn {
+                padding: 10px 20px;
+                font-size: 0.95rem;
+            }
+            
+            .netflix-rating {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body class="netflix-page">
+    <!-- ===== NETFLIX-STYLE HERO SECTION ===== -->
+    <section class="netflix-hero">
+        <!-- Background Image -->
+        <div class="netflix-hero__bg">
+            <img 
+                src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-ClE566gPAt0QdMd5QuTVKwDSFi0eGj.png" 
+                alt="Natthanan Suwanchot"
+                class="netflix-hero__bg-image"
+            >
+        </div>
+        
+        <!-- Gradient Overlays (Fade Effects) -->
+        <div class="netflix-hero__gradient-top" aria-hidden="true"></div>
+        <div class="netflix-hero__gradient-left" aria-hidden="true"></div>
+        <div class="netflix-hero__gradient-bottom" aria-hidden="true"></div>
+        
+        <!-- Navigation -->
+        <nav class="netflix-nav" aria-label="Main navigation">
+            <a href="index.html" class="netflix-nav__logo">PORTFOLIO</a>
+            <ul class="netflix-nav__menu">
+                <li><a href="index.html" class="netflix-nav__link netflix-nav__link--active" aria-current="page">Home</a></li>
+                <li><a href="cv.html" class="netflix-nav__link">About Me</a></li>
+                <li><a href="calculator.html" class="netflix-nav__link">Calculator</a></li>
+            </ul>
+        </nav>
+        
+        <!-- Main Content -->
+        <div class="netflix-hero__content">
+            <!-- Badge -->
+            <div class="netflix-badge">
+                <span class="netflix-badge__icon">N</span>
+                <span class="netflix-badge__text">Portfolio</span>
+            </div>
+            
+            <!-- Title -->
+            <h1 class="netflix-title">Natthanan<br>Suwanchot</h1>
+            
+            <!-- Subtitle -->
+            <p class="netflix-subtitle">- Web Developer -</p>
+            
+            <!-- Description -->
+            <p class="netflix-description">
+                ผู้หลงใหลในการเขียนโค้ดและการออกแบบ 
+                พร้อมที่จะสร้างสรรค์ผลงานที่น่าประทับใจ 
+                และก้าวสู่โลกของ Web Development
+            </p>
+            
+            <!-- Buttons -->
+            <div class="netflix-buttons">
+                <a href="cv.html" class="netflix-btn netflix-btn--play">
+                    <svg class="netflix-btn__icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 2v20l17-10L4 2z"/>
+                    </svg>
+                    View Profile
+                </a>
+                <a href="calculator.html" class="netflix-btn netflix-btn--info">
+                    <svg class="netflix-btn__icon" viewBox="0 0 24 24" fill="currentColor">
+                        <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                        <path d="M12 7v6M12 16v1"/>
+                    </svg>
+                    Try Calculator
+                </a>
+            </div>
+        </div>
+        
+        <!-- Maturity Rating (decorative) -->
+        <div class="netflix-rating" aria-hidden="true">
+            <span class="netflix-rating__badge">Student</span>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="netflix-scroll-indicator" aria-hidden="true">
+            <span>Scroll Down</span>
+            <span class="netflix-scroll-indicator__arrow">&#8595;</span>
+        </div>
+    </section>
+
+    <!-- ===== JAVASCRIPT FOR SCROLL EFFECT ===== -->
+    <script>
+        /**
+         * Netflix-style Navigation Scroll Effect
+         * เพิ่มพื้นหลังให้ nav เมื่อเลื่อนหน้าจอ
+         */
+        (function() {
+            const nav = document.querySelector('.netflix-nav');
+            
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    nav.classList.add('netflix-nav--scrolled');
+                } else {
+                    nav.classList.remove('netflix-nav--scrolled');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
