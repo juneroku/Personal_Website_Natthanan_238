@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <!-- 
+        ============================================
+        META TAGS
+        กำหนดการเข้ารหัสและการแสดงผล
+        ============================================
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="เครื่องคิดเลข JavaScript - Natthanan Suwanchot">
+    <title>เครื่องคิดเลข | Natthanan Suwanchot</title>
+    
+    <!-- 
+        ============================================
+        EXTERNAL FONTS
+        โหลดฟอนต์ Bebas Neue และ Inter
+        ============================================
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS หลัก -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- 
+        ============================================
+        NETFLIX-STYLE CSS สำหรับหน้า Calculator
+        ============================================
+    -->
+    <style>
+        /* ===== CSS Variables - Netflix Theme ===== */
+        .netflix-calc {
+            --netflix-red: #e50914;
+            --netflix-dark: #141414;
+            --netflix-darker: #0a0a0a;
+            --netflix-card: #1a1a1a;
+            --netflix-text: #ffffff;
+            --netflix-gray: #b3b3b3;
+            --netflix-border: #333333;
+            font-family: 'Inter', 'Helvetica Neue', sans-serif;
+            background-color: var(--netflix-dark);
+            color: var(--netflix-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .netflix-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--netflix-dark);
+            border-bottom: 1px solid var(--netflix-border);
+        }
+        
+        .netflix-nav__logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--netflix-red);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-decoration: none;
+        }
+        
+        .netflix-nav__menu {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .netflix-nav__link {
+            color: var(--netflix-gray);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .netflix-nav__link:hover,
+        .netflix-nav__link--active {
+            color: var(--netflix-text);
+        }
+        
+        /* ===== MAIN CONTAINER ===== */
+        .calc-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 4% 40px;
+        }
+        
+        /* ===== HEADER ===== */
+        .calc-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .calc-header__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .calc-header__badge-icon {
+            background-color: var(--netflix-red);
+            color: white;
+            font-weight: 900;
+            padding: 2px 8px;
+            font-size: 1rem;
+        }
+        
+        .calc-header__badge-text {
+            color: var(--netflix-gray);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        .calc-header__title {
+            font-family: 'Bebas Neue', Impact, sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            letter-spacing: 4px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+        }
+        
+        .calc-header__subtitle {
+            color: var(--netflix-gray);
+            font-size: 1rem;
+        }
+        
+        /* ===== CALCULATOR ===== */
+        .calculator {
+            background-color: var(--netflix-card);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--netflix-border);
+            width: 100%;
+            max-width: 340px;
+        }
+        
+        /* Display */
+        .calculator__display {
+            background-color: var(--netflix-darker);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: right;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        
+        .calculator__equation {
+            font-size: 0.9rem;
+            color: var(--netflix-gray);
+            min-height: 24px;
+            word-break: break-all;
+            margin-bottom: 5px;
+        }
+        
+        .calculator__result {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            color: var(--netflix-text);
+            word-break: break-all;
+        }
+        
+        /* Keypad - CSS Grid 4 columns */
+        .calculator__keypad {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+        
+        /* Keys */
+        .calculator__key {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            font-size: 1.4rem;
+            font-weight: 600;
+            background-color: #2a2a2a;
+            color: var(--netflix-text);
+            border: none;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        
+        .calculator__key:hover {
+            background-color: #3a3a3a;
+        }
+        
+        .calculator__key:active {
+            transform: scale(0.95);
+        }
+        
+        /* Clear key - สีแดง Netflix */
+        .calculator__key--clear {
+            background-color: rgba(229, 9, 20, 0.3);
+            color: var(--netflix-red);
+        }
+        
+        .calculator__key--clear:hover {
+            background-color: rgba(229, 9, 20, 0.5);
+        }
+        
+        /* Operator keys - สีแดง Netflix */
+        .calculator__key--operator {
+            background-color: rgba(229, 9, 20, 0.2);
+            color: var(--netflix-red);
+        }
+        
+        .calculator__key--operator:hover {
+            background-color: rgba(229, 9, 20, 0.4);
+        }
+        
+        /* Zero key - กว้าง 2 columns */
+        .calculator__key--zero {
+            grid-column: span 2;
+            aspect-ratio: auto;
+            padding: 20px;
+        }
+        
+        /* Equals key - สีแดง Netflix เต็ม */
+        .calculator__key--equals {
+            background-color: var(--netflix-red);
+            color: white;
+        }
+        
+        .calculator__key--equals:hover {
+            background-color: #f40612;
+        }
+        
+        /* ===== KEYBOARD INFO ===== */
+        .calc-info {
+            margin-top: 30px;
+            text-align: center;
+            color: var(--netflix-gray);
+            font-size: 0.85rem;
+        }
+        
+        .calc-info strong {
+            color: var(--netflix-red);
+        }
+        
+        /* ===== FOOTER ===== */
+        .netflix-footer {
+            background-color: var(--netflix-darker);
+            padding: 30px 4%;
+            text-align: center;
+            border-top: 1px solid var(--netflix-border);
+        }
+        
+        .netflix-footer__text {
+            color: var(--netflix-gray);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .netflix-nav {
+                padding: 15px 4%;
+            }
+            
+            .netflix-nav__menu {
+                gap: 15px;
+            }
+            
+            .netflix-nav__link {
+                font-size: 12px;
+            }
+            
+            .calculator {
+                max-width: 300px;
+            }
+            
+            .calculator__key {
+                font-size: 1.2rem;
+            }
+            
+            .calculator__result {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="netflix-calc">
